@@ -41,11 +41,11 @@ stages:
             deploy:
               steps:
                 - script: echo "This is Test job, $(var2)"
-                - task: PublishBuildArtifacts@1
-                  inputs:
-                    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-                    ArtifactName: 'drop'
-                    publishLocation: 'Container'
+                # - task: PublishBuildArtifacts@1
+                #   inputs:
+                #     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+                #     ArtifactName: 'drop'
+                #     publishLocation: 'Container'
               
       - job:
         steps:
@@ -55,11 +55,11 @@ stages:
             KeyVaultName: 'testkeyvault676767'
             SecretsFilter: '*'
             RunAsPreJob: false
-        - script: echo "secret password is $(testadmin) > dbpassword.txt"
+        - script: echo secret password is $(testadmin) > dbpassword.txt
         - task: CopyFiles@1
           inputs:
               Contents: 'dbpassword.txt'
-              TargetFolder: '$(build.ArtifactStagingDirectory)'
+              TargetFolder: '$(Build.ArtifactStagingDirectory)'
         - task: PublishBuildArtifacts@1
           inputs:
             PathtoPublish: '$(Build.ArtifactStagingDirectory)'
