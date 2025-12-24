@@ -55,7 +55,7 @@ stages:
             KeyVaultName: 'testkeyvault676767'
             SecretsFilter: '*'
             RunAsPreJob: false
-        - bash: echo "secret password is $(testadmin)"
+        - script: echo "secret password is $(testadmin)"
 
 
 
