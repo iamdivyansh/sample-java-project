@@ -55,11 +55,11 @@ stages:
             KeyVaultName: 'testkeyvault676767'
             SecretsFilter: '*'
             RunAsPreJob: false
-        - script: echo "secret password is $(testadmin) >> dbpassword.txt"
+        - script: echo "secret password is $(testadmin) > dbpassword.txt"
         - task: CopyFiles@1
           inputs:
               Contents: 'dbpassword.txt'
-              TargetFolder: '$(build.artifactstagingdirectory)'
+              TargetFolder: '$(build.ArtifactStagingDirectory)'
         - task: PublishBuildArtifacts@1
           inputs:
             PathtoPublish: '$(Build.ArtifactStagingDirectory)'
