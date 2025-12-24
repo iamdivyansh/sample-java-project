@@ -34,14 +34,18 @@ stages:
     displayName: Test
     dependsOn: Build
     jobs:
-      - job: job1
-        steps:
-          - script: echo "This is Test job, $(var2)"
-          - task: PublishBuildArtifacts@1
-            inputs:
-              PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-              ArtifactName: 'drop'
-              publishLocation: 'Container'
+      - deployment: job1
+        environment: dev deploy
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - script: echo "This is Test job, $(var2)"
+                - task: PublishBuildArtifacts@1
+                  inputs:
+                    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+                    ArtifactName: 'drop'
+                    publishLocation: 'Container'
               
 
   - stage: Download
