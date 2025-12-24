@@ -39,9 +39,10 @@ stages:
           - script: echo "This is Test job, $(var2)"
           - task: PublishBuildArtifacts@1
             inputs:
-              PathtoPublish: '$(Build.DefaultWorkingDirectory)'
+              PathtoPublish: '$(Build.ArtifactStagingDirectory)'
               ArtifactName: 'drop'
               publishLocation: 'Container'
+              
 
   - stage: Download
     displayName: Download the atifacts
