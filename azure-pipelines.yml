@@ -12,7 +12,6 @@ parameters:
     displayName: parameter 1
     type: string
     default: dev
-      - dev
       - prod
 
 pool:
