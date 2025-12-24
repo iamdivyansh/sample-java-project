@@ -1,14 +1,48 @@
 trigger:
 - master
 
+variables:
+  - name: var1
+    value: value1
+  - name: var2
+    value: value2
+
+parameters:
+  - name: param1
+    displayName: parameter 1
+    type: string
+    default: dev
+      - dev
+      - prod
+
 pool:
  name: DEFAULT
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+stages:
+  - stage: Build
+    displayName: Build
+    jobs:
+      - job: job1
+        steps:
+          - script: echo "This is job1, $(var1)"
+      - job: job2
+        steps:
+          - script: echo "This is job2, ${ parameters.param1 }"
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+  - stage: Test
+    displayName: Test
+    dependsOn: Build
+    jobs:
+      - job: job1
+        steps:
+          - script: echo "This is Test job, $(var2)"
+
+
+# steps:
+# - script: echo Hello, world!
+#   displayName: 'Run a one-line script'
+
+# - script: |
+#     echo Add other tasks to build, test, and deploy your project.
+#     echo See https://aka.ms/yaml
+#   displayName: 'Run a multi-line script'
