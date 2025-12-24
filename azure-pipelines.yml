@@ -12,6 +12,7 @@ parameters:
     displayName: parameter 1
     type: string
     default: dev
+    values:
       - prod
 
 pool:
@@ -26,7 +27,7 @@ stages:
           - script: echo "This is job1, $(var1)"
       - job: job2
         steps:
-          - script: echo "This is job2, ${ parameters.param1 }"
+          - script: echo "This is job2, ${{ parameters.param1 }}"
 
   - stage: Test
     displayName: Test
